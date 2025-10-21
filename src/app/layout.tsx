@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import BarraLateral from "@/components/BarraLateral";
 
 export const metadata: Metadata = {
   title: "Vendas",
@@ -15,8 +16,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={``}
+        className={`flex h-screen w-full`}
       >
+        <BarraLateral />
         {children}
       </body>
     </html>
