@@ -13,21 +13,21 @@ export default function BarraLateral() {
 const links = [
 {
     label: "Home",
-    href: "#",
+    href: "/",
     icon: (
     <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
 },
 {
     label: "Cadastro",
-    href: "#",
+    href: "/Cadastro",
     icon: (
     <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
 },
 {
     label: "Config",
-    href: "#",
+    href: "/Configuracoes",
     icon: (
     <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
