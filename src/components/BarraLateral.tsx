@@ -10,77 +10,73 @@ import {
 import { motion } from "motion/react";
 
 export default function BarraLateral() {
-const links = [
-{
-    label: "Home",
-    href: "/",
-    icon: (
-    <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-    ),
-},
-{
-    label: "Cadastro",
-    href: "/Cadastro",
-    icon: (
-    <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-    ),
-},
-{
-    label: "Config",
-    href: "/Configuracoes",
-    icon: (
-    <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-    ),
-},
-{
-    label: "Sair",
-    href: "#",
-    icon: (
-    <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-    ),
-},
-];
+  const links = [
+    {
+      label: "Home",
+      href: "/",
+      icon: (
+        <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Cadastro",
+      href: "/Cadastro",
+      icon: (
+        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Config",
+      href: "/Configuracoes",
+      icon: (
+        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Sair",
+      href: "#",
+      icon: (
+        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+  ];
 
-const [open, setOpen] = useState(false);
-    return (
-        <div
-        className=""
-        
-        >
-        <Sidebar open={open} setOpen={setOpen} animate={true}>
-            <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
-                <>
-                <Logo />
-                </>
-                <div className="mt-8 flex flex-col gap-2">
-                {links.map((link, idx) => (
-                    <SidebarLink key={idx} link={link} />
-                ))}
-                </div>
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="">
+      <Sidebar open={open} setOpen={setOpen} animate={false}>
+        <SidebarBody className="justify-between gap-10">
+          <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            <>
+              <Logo />
+            </>
+            <div className="mt-8 flex flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
             </div>
-            <div>
-                <SidebarLink
-                link={{
-                    label: "Manu Arora",
-                    href: "#",
-                    icon: (
-                    <img
-                        src="https://assets.aceternity.com/manu.png"
-                        className="h-7 w-7 shrink-0 rounded-full"
-                        width={50}
-                        height={50}
-                        alt="Avatar"
-                    />
-                    ),
-                }}
-                />
-            </div>
-            </SidebarBody>
-        </Sidebar>
-        
-        </div>
-    );
+          </div>
+          <div>
+            <SidebarLink
+              link={{
+                label: "Manu Arora",
+                href: "#",
+                icon: (
+                  <img
+                    src="https://assets.aceternity.com/manu.png"
+                    className="h-7 w-7 shrink-0 rounded-full"
+                    width={50}
+                    height={50}
+                    alt="Avatar"
+                  />
+                ),
+              }}
+            />
+          </div>
+        </SidebarBody>
+      </Sidebar>
+    </div>
+  );
 }
 
 export const Logo = () => {
@@ -111,6 +107,3 @@ export const LogoIcon = () => {
     </a>
   );
 };
-
-
-

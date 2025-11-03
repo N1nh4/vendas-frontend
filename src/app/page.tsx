@@ -1,6 +1,7 @@
 "use client";
 import ConteudoPage from "@/components/ConteudoPage";
-import TituloPage from "@/components/TituloPage"
+import InputFormulario from "@/components/InputFormulario";
+import TituloPage from "@/components/TituloPage";
 import { FormEvent, useState } from "react";
 
 export default function Home() {
@@ -9,14 +10,15 @@ export default function Home() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
 
+  // função para enviar os dados do formulario de produtos
   function handleEnviar(e: FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
     const produto = {
       sku,
       preco,
       nome,
-      descricao
-    }
+      descricao,
+    };
     setSku("");
     setPreco("");
     setNome("");
@@ -26,72 +28,63 @@ export default function Home() {
 
   return (
     <div className="flex h-screen flex-col w-full">
-      <TituloPage titulo="Home"/>
+      <TituloPage titulo="Home" />
       <main className="flex justify-center">
-        <ConteudoPage> 
+        <ConteudoPage>
           <form action="" className="flex flex-col gap-4">
             <div>
               <h1 className="text-2xl">Cadastro de Produto</h1>
             </div>
-      
-            <div className="flex flex-row gap-1 w-full">
-              <div className="flex flex-col flex-1 gap-4">
-                <label htmlFor="inputSKU">SKU: *</label>
-                <input
-                  id="inputSKU"
-                  type="text"
-                  placeholder="Digite o SKU do produto"
-                  className="p-2 border-gray-300 border text-gray-400 rounded-sm"
-                  onChange={e => setSku(e.target.value)}
-                  value={sku}
 
-                />
-              </div>
+            <div className="flex flex-row gap-1 w-full">
+              <InputFormulario
+                htmlFor="inputSKU"
+                label="SKU: *"
+                id="inputSKU"
+                type="text"
+                placeholder="Digite o SKU do produto"
+                onChange={setSku}
+                value={sku}
+              />
+
               <div className="flex flex-col flex-1 gap-4">
-                <label htmlFor="inputPreco">Preço: *</label>
-                <input
+                <InputFormulario
+                  htmlFor="inputPreco"
+                  label="Preço: *"
                   id="inputPreco"
                   type="number"
-                  placeholder="Digite o SKU do produto"
-                  className="p-2 border-gray-300 border text-gray-400 rounded-sm"
-                  onChange={e => setPreco(e.target.value)}
+                  placeholder="Digite o preço do produto"
+                  onChange={setPreco}
                   value={preco}
-                
                 />
               </div>
             </div>
 
-            <label htmlFor="inputNome">Nome: *</label>
-            <input 
-              id="inputNome" 
-              type="text" 
-              placeholder="Digite o SKU do produto"
-              className="p-2 border-gray-300 border text-gray-400 rounded-sm"
-              onChange={e => setNome(e.target.value)}
+            <InputFormulario
+              htmlFor="inputNome"
+              label="Nome: *"
+              id="inputNome"
+              type="text"
+              placeholder="Digite o nome do produto"
+              onChange={setNome}
               value={nome}
-            
             />
 
             <label htmlFor="inputDescricao">Descrição: *</label>
             <textarea
-              id="inputDescricao" 
+              id="inputDescricao"
               placeholder="Digite o SKU do produto"
-              className="p-2 border-gray-300 border text-gray-400 rounded-sm"
-              onChange={e => setDescricao(e.target.value)}
+              className="p-2 border-gray-300 border text-black placeholder-gray-400 rounded-sm"
+              onChange={(e) => setDescricao(e.target.value)}
               value={descricao}
-        
-            
             />
-
-            <button 
+            <button
               className="bg-blue-500 rounded-sm text-white p-2 "
               type="button"
               onClick={handleEnviar}
-                   
             >
               Salvar
             </button>
-
           </form>
         </ConteudoPage>
       </main>
