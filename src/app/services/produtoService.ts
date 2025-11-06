@@ -10,10 +10,19 @@
 //   return response.json();
 // }
 
+import { toast } from "sonner";
 import { Produto } from "../types/produto";
 import { api } from "./api";
 
 export async function criarProduto(produto: Produto) {
-  const response = await api.post("/api/produtos", produto);
-  return response.data;
+  try {
+    const response = await api.post("/api/produtos", produto);
+    toast.success(
+      "Produto " + `"` + produto.nome + `"` + " cadastrado com sucesso!"
+    );
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao criar o produto.");
+    throw error;
+  }
 }

@@ -3,6 +3,8 @@ import ConteudoPage from "@/components/ConteudoPage";
 import InputFormulario from "@/components/InputFormulario";
 import TituloPage from "@/components/TituloPage";
 import { FormEvent, useState } from "react";
+import { criarProduto } from "./services/produtoService";
+import { Produto } from "./types/produto";
 
 export default function Home() {
   const [sku, setSku] = useState("");
@@ -11,19 +13,22 @@ export default function Home() {
   const [descricao, setDescricao] = useState("");
 
   // função para enviar os dados do formulario de produtos
-  function handleEnviar(e: FormEvent) {
+  async function handleEnviar(e: FormEvent) {
     e.preventDefault();
-    const produto = {
+    const produto: Produto = {
       sku,
-      preco,
+      preco: parseFloat(preco),
       nome,
       descricao,
+      dataCadastro: new Date().toISOString(),
     };
+
+    await criarProduto(produto);
+
     setSku("");
     setPreco("");
     setNome("");
     setDescricao("");
-    console.log(produto);
   }
 
   return (
