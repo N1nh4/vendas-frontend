@@ -4,7 +4,7 @@ import InputFormulario from "@/components/InputFormulario";
 import TituloPage from "@/components/TituloPage";
 import { FormEvent, useState } from "react";
 import { criarProduto } from "./services/produtoService";
-import { Produto } from "./types/produto";
+import { ProdutoRequest } from "./types/produto";
 
 export default function Home() {
   const [sku, setSku] = useState("");
@@ -15,7 +15,7 @@ export default function Home() {
   // função para enviar os dados do formulario de produtos
   async function handleEnviar(e: FormEvent) {
     e.preventDefault();
-    const produto: Produto = {
+    const produto: ProdutoRequest = {
       sku,
       preco: parseFloat(preco),
       nome,

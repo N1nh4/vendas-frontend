@@ -11,10 +11,10 @@
 // }
 
 import { toast } from "sonner";
-import { Produto } from "../types/produto";
 import { api } from "./api";
+import { ProdutoRequest } from "../types/produto";
 
-async function criarProduto(produto: Produto) {
+async function criarProduto(produto: ProdutoRequest) {
   try {
     const response = await api.post("/api/produtos", produto);
     toast.success(
@@ -45,4 +45,4 @@ async function visualizarProduto() {
   }
 }
 
-export { criarProduto };
+export { criarProduto, visualizarProduto };

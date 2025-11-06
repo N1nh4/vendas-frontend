@@ -19,50 +19,31 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import InputFormulario from "@/components/InputFormulario";
-import { FormEvent, useState } from "react";
-import { Produto } from "../types/produto";
+import { FormEvent, useEffect, useState } from "react";
+import { visualizarProduto } from "../services/produtoService";
+import { ProdutoRequest, ProdutoResponse } from "../types/produto";
 
 export default function Configuracoes() {
-  const produtos = [
-    {
-      id: 1,
-      nome: "Produto A",
-      sku: "SKU001",
-      preco: 100.0,
-      descricao: "celular 500 GB",
-    },
-    {
-      id: 2,
-      nome: "Produto B",
-      sku: "SKU002",
-      preco: 150.0,
-      descricao: "notebook 1 TB",
-    },
-    {
-      id: 3,
-      nome: "Produto C",
-      sku: "SKU003",
-      preco: 200.0,
-      descricao: "tablet 256 GB",
-    },
-    {
-      id: 4,
-      nome: "Produto D",
-      sku: "SKU004",
-      preco: 250.0,
-      descricao: "smartwatch 128 GB",
-    },
-  ];
-
+  const [produtos, setProdutos] = useState<ProdutoResponse[]>([]);
+  const [idProduto, setIdProduto] = useState<number | null>(null);
   const [sku, setSku] = useState("");
   const [preco, setPreco] = useState("");
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
 
+  useEffect(() => {
+    async function carregarProdutos() {
+      const data = await visualizarProduto();
+      setProdutos(data);
+    }
+
+    carregarProdutos();
+  }, []);
+
   // função para enviar os dados do formulario de produtos
   async function handleEnviar(e: FormEvent) {
     e.preventDefault();
-    const produto: Produto = {
+    const produto: ProdutoRequest = {
       sku,
       preco: parseFloat(preco),
       nome,
@@ -88,7 +69,16 @@ export default function Configuracoes() {
             <CardFooter className="gap-2">
               <Dialog>
                 <DialogTrigger>
-                  <button className="cursor-pointer border border-gray-300 p-2 rounded-md">
+                  <button
+                    onClick={() => {
+                      setIdProduto(produto.id);
+                      setSku(produto.sku);
+                      setPreco(produto.preco.toString());
+                      setNome(produto.nome);
+                      setDescricao(produto.descricao);
+                    }}
+                    className="cursor-pointer border border-gray-300 p-2 rounded-md"
+                  >
                     <Edit size={16} />
                   </button>
                 </DialogTrigger>
