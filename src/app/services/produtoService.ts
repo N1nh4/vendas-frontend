@@ -45,4 +45,23 @@ async function visualizarProduto() {
   }
 }
 
-export { criarProduto, visualizarProduto };
+// async function atualizarProduto(id: number, produto: ProdutoRequest) {
+//   const response = await fetch(`http://localhost:8080/api/produtos/${id}`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(produto),
+//   });
+//   return response.json();
+// }
+
+async function atualizarProduto(id: number, produto: ProdutoRequest) {
+  try {
+    const response = await api.put(`/api/produtos/${id}`, produto);
+    toast.success(produto.nome + " atualizado com sucesso!");
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao atualizar o produto.");
+  }
+}
+
+export { criarProduto, visualizarProduto, atualizarProduto };
