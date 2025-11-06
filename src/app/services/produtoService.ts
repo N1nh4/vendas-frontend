@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { Produto } from "../types/produto";
 import { api } from "./api";
 
-export async function criarProduto(produto: Produto) {
+async function criarProduto(produto: Produto) {
   try {
     const response = await api.post("/api/produtos", produto);
     toast.success(
@@ -26,3 +26,23 @@ export async function criarProduto(produto: Produto) {
     throw error;
   }
 }
+
+// async function visualizarTodosProdutos() {
+//   const response = await fetch("http://localhost:8080/api/produtos", {
+//     method: "GET",
+//     headers: { "Content-Type": "application/JSON" },
+//   });
+//   return response.json();
+// }
+
+async function visualizarProduto() {
+  try {
+    const response = await api.get("/api/produtos");
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao visualizar o produto.");
+    throw error;
+  }
+}
+
+export { criarProduto };
