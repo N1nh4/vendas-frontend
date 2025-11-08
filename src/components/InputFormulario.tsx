@@ -6,6 +6,7 @@ interface InputProps {
   placeholder?: string;
   onChange: (value: string) => void;
   value: string;
+  required: boolean;
 }
 
 export default function InputFormulario(props: InputProps) {
@@ -19,6 +20,7 @@ export default function InputFormulario(props: InputProps) {
         className="p-2 border-gray-300 border text-black placeholder-gray-400 rounded-sm"
         onChange={(e) => props.onChange(e.target.value)} // ver como que fica o set
         value={props.value}
+        required={props.required}
       />
     </div>
   );

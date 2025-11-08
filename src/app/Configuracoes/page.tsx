@@ -20,7 +20,10 @@ import {
 } from "@/components/ui/dialog";
 import InputFormulario from "@/components/InputFormulario";
 import { FormEvent, useEffect, useState } from "react";
-import { visualizarProduto } from "../services/produtoService";
+import {
+  atualizarProduto,
+  visualizarProduto,
+} from "../services/produtoService";
 import { ProdutoRequest, ProdutoResponse } from "../types/produto";
 
 export default function Configuracoes() {
@@ -30,18 +33,19 @@ export default function Configuracoes() {
   const [preco, setPreco] = useState("");
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [open, setOpen] = useState<Boolean>(false);
+
+  async function carregarProdutos() {
+    const data = await visualizarProduto();
+    setProdutos(data);
+  }
 
   useEffect(() => {
-    async function carregarProdutos() {
-      const data = await visualizarProduto();
-      setProdutos(data);
-    }
-
     carregarProdutos();
   }, []);
 
   // função para enviar os dados do formulario de produtos
-  async function handleEnviar(e: FormEvent) {
+  async function handleAtualizarProduto(e: FormEvent) {
     e.preventDefault();
     const produto: ProdutoRequest = {
       sku,
@@ -50,6 +54,17 @@ export default function Configuracoes() {
       descricao,
       dataCadastro: new Date().toISOString(),
     };
+
+    if (idProduto !== null) {
+      await atualizarProduto(idProduto, produto);
+    }
+
+    await carregarProdutos();
+
+    setSku("");
+    setPreco("");
+    setNome("");
+    setDescricao("");
   }
 
   return (
@@ -96,6 +111,7 @@ export default function Configuracoes() {
                             placeholder="Digite o SKU do produto"
                             onChange={setSku}
                             value={sku}
+                            required={true}
                           />
 
                           <div className="flex flex-col flex-1 gap-4">
@@ -107,6 +123,7 @@ export default function Configuracoes() {
                               placeholder="Digite o preço do produto"
                               onChange={setPreco}
                               value={preco}
+                              required={true}
                             />
                           </div>
                         </div>
@@ -119,6 +136,7 @@ export default function Configuracoes() {
                           placeholder="Digite o nome do produto"
                           onChange={setNome}
                           value={nome}
+                          required={true}
                         />
 
                         <label htmlFor="inputDescricao">Descrição: *</label>
@@ -132,7 +150,7 @@ export default function Configuracoes() {
                         <button
                           className="bg-blue-500 rounded-sm text-white p-2 "
                           type="button"
-                          onClick={handleEnviar}
+                          onClick={handleAtualizarProduto}
                         >
                           Atualizar
                         </button>

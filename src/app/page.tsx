@@ -5,6 +5,7 @@ import TituloPage from "@/components/TituloPage";
 import { FormEvent, useState } from "react";
 import { criarProduto } from "./services/produtoService";
 import { ProdutoRequest } from "./types/produto";
+import { toast } from "sonner";
 
 export default function Home() {
   const [sku, setSku] = useState("");
@@ -22,6 +23,20 @@ export default function Home() {
       descricao,
       dataCadastro: new Date().toISOString(),
     };
+
+    const input = [
+      { nome: "SKU", valor: sku },
+      { nome: "Preço", valor: preco },
+      { nome: "Nome", valor: nome },
+      { nome: "Descrição", valor: descricao },
+    ];
+
+    for (const campo of input) {
+      if (!campo.valor || campo.valor.trim() === "") {
+        toast.error(`O campo ${campo.nome} é obrigatório.`);
+        return;
+      }
+    }
 
     await criarProduto(produto);
 
@@ -50,6 +65,7 @@ export default function Home() {
                 placeholder="Digite o SKU do produto"
                 onChange={setSku}
                 value={sku}
+                required={true}
               />
 
               <div className="flex flex-col flex-1 gap-4">
@@ -61,6 +77,7 @@ export default function Home() {
                   placeholder="Digite o preço do produto"
                   onChange={setPreco}
                   value={preco}
+                  required={true}
                 />
               </div>
             </div>
@@ -73,6 +90,7 @@ export default function Home() {
               placeholder="Digite o nome do produto"
               onChange={setNome}
               value={nome}
+              required={true}
             />
 
             <label htmlFor="inputDescricao">Descrição: *</label>
